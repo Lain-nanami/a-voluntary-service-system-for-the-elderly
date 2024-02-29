@@ -1,0 +1,93 @@
+<!-- 如果isLoad为假，即不加载，显示一个带有一些样式类的空<view>元素 -->
+  <view wx:if="{{!isLoad}}" class="margin-top load loading text-l text-admin"></view>
+
+<!-- 如果isLoad和isAdmin都为真，即加载且是管理员，显示一个具有样式类main-admin的<view>元素 -->
+<view class="main-admin" wx:if="{{isLoad && isAdmin}}">
+
+    <!-- 包含管理员信息的容器，带有admin-info和bg-admin样式类 -->
+    <view class="admin-info bg-admin">
+        <!-- 用于显示管理员头像的容器，包含一个人物图标 -->
+        <view class="pic"><text class="icon-peoplefill"></text></view>
+
+        <!-- 包含管理员名字、类型等信息的容器 -->
+        <view class="right">
+            <!-- 包含管理员名字和类型的容器 -->
+            <view class="name">
+                <!-- 根据管理员类型显示不同的标签，超级管理员或一般管理员 -->
+                <text wx:if="{{admin.type==1}}" class="tag small bg-orange light radius margin-left-s">管理员</text>
+                <text wx:if="{{admin.type==0}}" class="tag small bg-green radius margin-left-s">一般管理员</text>
+            </view>
+            
+            <!-- 显示管理员登录次数和上次登录时间的描述信息 -->
+            <view class="desc text-s">上次于{{admin.last}}时登录</view>
+        </view>
+
+        <!-- 包含退出管理员登录按钮的容器，点击触发bindExitTap事件 -->
+        <view class="exit-admin" bindtap="bindExitTap"><text class="icon-exit"></text></view>
+    </view>
+
+    <!-- 包含活动、预约、用户、文章数量的容器，使用4列的网格布局 -->
+    <view class="comm-list grid col-4">
+        <view class="item" bindtap="url" data-url="../../meet/list/admin_meet_list">{{data.meetCnt||'...'}}<text class="text-black">活动数</text></view>
+        <view class="item" bindtap="url" data-url="../../info/admin_info_list">{{data.joinCnt||'...'}}<text class="text-black">预约数</text></view>
+        <view class="item" bindtap="url" data-url="../../user/list/admin_user_list">{{data.userCnt||'...'}}<text class="text-black">使用用户</text></view>
+        <view class="item" bindtap="url" data-url="../../news/list/admin_news_list">{{data.newsCnt||'...'}}<text class="text-black">发布的文章数</text></view>
+    </view>
+
+    <!-- 显示一个带有标题的工具栏 -->
+    <view class="bar bg-white solid-bottom margin-top-s ">
+        <view class="action">
+            <!-- 用于显示标题的图标 -->
+            <text class="icon-title"></text>功能栏
+        </view>
+    </view>
+
+    <!-- 包含活动/预约管理、用户管理、内容管理的容器，使用3列的网格布局 -->
+    <view class="comm-list grid col-3">
+        <view class="item" bindtap="url" data-url="../../meet/list/admin_meet_list"> <text class="icon-activityfill text-blue"></text> <text class="text-black">活动管理</text>
+        </view>
+        <view class="item" bindtap="url" data-url="../../user/list/admin_user_list"> <text class="icon-peoplefill text-green"></text> <text class="text-black">用户管理</text>
+        </view>
+        <view class="item" bindtap="url" data-url="../../news/list/admin_news_list"> <text class="icon-newsfill text-darkgreen"></text> <text class="text-black">内容管理</text>
+        </view>
+    </view>
+
+    <!-- 包含编辑关于我们、编辑联系我们、小程序二维码等设置项的容器 -->
+    <view class="comm-list menu  margin-top">
+        <view class="item arrow" bindtap="url" data-url='../../setup/about/admin_setup_about'>
+            <view class="content">
+                <text class="icon-edit text-darkgreen"></text>
+                <text class="text-black">编辑 - 关于我们</text>
+            </view>
+        </view>
+        <view class="item arrow" bindtap="url" data-url='../../setup/contact/admin_setup_contact'>
+            <view class="content">
+                <text class="icon-post text-pink"></text>
+                <text class="text-black">编辑 - 联系我们</text>
+            </view>
+        </view>
+    </view>
+    
+    <!-- 包含管理员操作日志、设置等设置项的容器 -->
+    <view class="comm-list menu margin-bottom-xl"> 
+        <view class="item arrow" bindtap="url" data-url='../../mgr/log/admin_log_list'>
+            <view class="content">
+                <text class="icon-footprint text-brown"></text>
+                <text class="text-black">管理员操作日志</text>
+            </view>
+        </view> 
+        <view class="item arrow" bindtap="bindSettingTap">
+            <view class="content">
+                <text class="icon-settings text-grey"></text>
+                <text class="text-black">设置</text>
+            </view>
+        </view>
+    </view>
+
+    <!-- 退出登录按钮，点击触发bindExitTap事件 -->
+    <button bindtap="bindExitTap" class="btn-admin">退出登录</button> 
+
+
+
+</view>
+<!-- <view>元素的闭合标签，表示管理员界面的整体结构结束 -->
